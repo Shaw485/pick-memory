@@ -26,6 +26,7 @@ jobs:
           node --check content.js
           node tests/scheduler.test.js
           node tests/background.test.js
+          ./native-macos/build.sh
           python3 native-macos/tests/test_native_host.py
 
       - name: Build macOS and Windows packages
