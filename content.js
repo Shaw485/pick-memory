@@ -283,8 +283,29 @@
     window.setTimeout(() => toast.remove(), 2200);
   }
 
-  function send(message) {
-    return chrome.runtime.sendMessage(message).catch(() => null);
+  async function send(message) {
+    try {
+      if (!hasRuntimeContext()) {
+        return { ok: false, error: "扩展已更新，请刷新页面" };
+      }
+      return await chrome.runtime.sendMessage(message);
+    } catch (error) {
+      const detail = String(error?.message || error || "");
+      const contextInvalidated = /context invalidated|message port closed/i.test(detail)
+        || !hasRuntimeContext();
+      return {
+        ok: false,
+        error: contextInvalidated ? "扩展已更新，请刷新页面" : "扩展暂时不可用，请稍后重试"
+      };
+    }
+  }
+
+  function hasRuntimeContext() {
+    try {
+      return typeof chrome !== "undefined" && Boolean(chrome.runtime?.id);
+    } catch {
+      return false;
+    }
   }
 
   function escapeHtml(value) {

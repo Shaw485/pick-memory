@@ -290,7 +290,7 @@ static BOOL AppendPendingCard(NSDictionary *card) {
     NSDictionary *status = @{
         @"trusted": @(trusted),
         @"enabled": @(self.captureEnabled),
-        @"version": @"0.3.0",
+        @"version": @"0.3.1",
         @"updatedAt": [NSISO8601DateFormatter.new stringFromDate:NSDate.date]
     };
     NSData *data = [NSJSONSerialization dataWithJSONObject:status options:0 error:nil];
