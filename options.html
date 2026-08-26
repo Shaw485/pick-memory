@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>拾忆卡 · 知识库</title>
+  <link rel="stylesheet" href="ui.css">
+</head>
+<body class="library-page">
+  <main class="library-shell">
+    <header class="library-header">
+      <div>
+        <div class="overline">MEMORY GARDEN</div>
+        <h1>你的知识正在生长</h1>
+        <p>只留下值得再次相遇的内容。</p>
+      </div>
+      <button id="add-new" class="primary-button compact">添加知识</button>
+    </header>
+
+    <section class="stats" aria-label="复习数据">
+      <div><strong id="stat-total">0</strong><span>知识总数</span></div>
+      <div><strong id="stat-due">0</strong><span>今日待复习</span></div>
+      <div><strong id="stat-reviewed">0</strong><span>今日已复习</span></div>
+    </section>
+
+    <section class="toolbar">
+      <input id="search" type="search" placeholder="搜索标题、正文或标签">
+      <select id="filter" aria-label="筛选知识">
+        <option value="active">进行中</option>
+        <option value="due">今日到期</option>
+        <option value="archived">已归档</option>
+        <option value="all">全部</option>
+      </select>
+      <button id="show-card" class="secondary-button">重新显示今日卡片</button>
+    </section>
+
+    <section id="card-list" class="card-list"></section>
+    <div id="empty" class="empty" hidden>
+      <div>✦</div>
+      <h2>还没有知识点</h2>
+      <p>浏览时选中一句话并右键标记，或点击右上角添加。</p>
+    </div>
+  </main>
+
+  <dialog id="editor">
+    <form id="edit-form" method="dialog">
+      <div class="dialog-heading">
+        <h2 id="dialog-title">添加知识</h2>
+        <button type="button" id="close-dialog" class="icon-button" aria-label="关闭">×</button>
+      </div>
+      <input id="edit-id" type="hidden">
+      <label>
+        <span>知识标题</span>
+        <input id="edit-title" maxlength="80" placeholder="用问题来写标题，回忆效果更好">
+      </label>
+      <label>
+        <span>知识内容</span>
+        <textarea id="edit-content" rows="8" required></textarea>
+      </label>
+      <label>
+        <span>标签 <small>用逗号分隔</small></span>
+        <input id="edit-tags">
+      </label>
+      <label id="archive-row" class="check-row">
+        <input id="edit-archived" type="checkbox">
+        <span>归档：不再出现在每日卡片里</span>
+      </label>
+      <div class="dialog-actions">
+        <button id="delete-card" type="button" class="danger-button">删除</button>
+        <span></span>
+        <button id="cancel-edit" type="button" class="secondary-button">取消</button>
+        <button type="submit" class="primary-button compact">保存</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="options.js"></script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+{
+  "manifest_version": 3,
+  "name": "拾忆卡",
+  "version": "0.3.0",
+  "description": "把平时标记的知识，按间隔重复节奏放回你的视线。",
+  "permissions": [
+    "storage",
+    "contextMenus",
+    "activeTab",
+    "alarms",
+    "nativeMessaging"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "添加知识点",
+    "default_popup": "popup.html"
+  },
+  "options_page": "options.html",
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+K",
+        "mac": "Command+Shift+K"
+      },
+      "description": "快速添加知识点"
+    }
+  }
+}

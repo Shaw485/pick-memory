@@ -1,0 +1,37 @@
+name: Build release packages
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Run tests
+        run: |
+          node --check background.js
+          node --check content.js
+          node tests/scheduler.test.js
+          node tests/background.test.js
+          python3 native-macos/tests/test_native_host.py
+
+      - name: Build macOS and Windows packages
+        run: node packaging/build-release.mjs
+
+      - name: Publish GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${GITHUB_REF_NAME}" \
+            dist/Pick-Memory-macOS-*.zip \
+            dist/Pick-Memory-Windows-*.zip \
+            dist/SHA256SUMS.txt \
+            --title "Pick Memory ${GITHUB_REF_NAME}" \
+            --generate-notes

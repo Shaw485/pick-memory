@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>添加知识点</title>
+  <link rel="stylesheet" href="ui.css">
+</head>
+<body class="popup-page">
+  <main class="popup-shell">
+    <header class="brand-row">
+      <div>
+        <span class="brand-mark">拾</span>
+        <strong>拾忆卡</strong>
+      </div>
+      <button id="open-library" class="text-button">知识库</button>
+    </header>
+
+    <div id="status" class="status" hidden></div>
+
+    <form id="add-form">
+      <label>
+        <span>知识标题</span>
+        <input id="title" name="title" maxlength="80" placeholder="用一个问题帮助自己回忆">
+      </label>
+      <label>
+        <span>知识内容</span>
+        <textarea id="content" name="content" rows="7" required placeholder="粘贴或输入刚刚学到的内容"></textarea>
+      </label>
+      <label>
+        <span>标签 <small>用逗号分隔</small></span>
+        <input id="tags" name="tags" placeholder="产品, 写作, 技术">
+      </label>
+      <button class="primary-button" type="submit">加入复习队列</button>
+    </form>
+
+    <p class="tip">也可以在网页上选中文字，右键选择“标记为知识点”。</p>
+  </main>
+  <script src="popup.js"></script>
+</body>
+</html>
